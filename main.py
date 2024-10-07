@@ -51,6 +51,7 @@ async def main():
                 for cog in events:
                     if cog not in ignoreds_cogs:
                         await utils.loadCog(client, f"{path}.{cog}", False)
-        await client.start("MTI5MTk4Nzk3OTk3MTMzNDE2Ng.GHCG0N.YRur2LM7J24Qc9KKKdoIw2-pfko_XOXgqzP4fo")
+        #await client.start("MTI5MTk4Nzk3OTk3MTMzNDE2Ng.GHCG0N.YRur2LM7J24Qc9KKKdoIw2-pfko_XOXgqzP4fo")
+        await client.start("MTI5MjgzOTA0MTA5NTQzNDI4MA.G5pPsR.QNv8rBayvMbcOlCXi4srmyfisWzfXtUl-f5BMA")
 
 asyncio.run(main())

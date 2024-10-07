@@ -21,9 +21,10 @@ class Ticket(commands.Cog):
             for panel in result:
                 channel = self.client.get_channel(panel[0])
                 await channel.purge(limit=100)
-                embed = discord.Embed(title=panel[1], description=panel[2], color=0x11A5DC)
-                embed.set_thumbnail(url=self.client.user.avatar)
-                await channel.send(embed=embed, view=SelectTickets(self.client))
+                await channel.send(f"Me envie uma mensagem na DM para abrir um ticket! ({self.client.user.mention})")
+                #embed = discord.Embed(title=panel[1], description=panel[2], color=0x11A5DC)
+                #embed.set_thumbnail(url=self.client.user.avatar)
+                #await channel.send(embed=embed, view=SelectTickets(self.client))
         except Exception as e:
             print(e)
 
@@ -53,7 +54,6 @@ class Ticket(commands.Cog):
                     embed = discord.Embed(title=panel[1], description=panel[2], color=0x11A5DC)
                     embed.set_thumbnail(url=self.client.user.avatar)
                     await message.author.send(content="Olá! Você não tem um ticket aberto!\n", embed=embed, view=SelectTickets(self.client))
-
 
         else:
             if message.content.startswith("---"): # SNIPPET NORMAL
