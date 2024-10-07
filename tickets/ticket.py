@@ -47,6 +47,13 @@ class Ticket(commands.Cog):
                     await self.client.get_channel(channel_id).send(f"**{user_name}: **{message.content}")
 
                 await message.add_reaction("✅")
+            else:
+                result = utils.dbQuery(f"SELECT * FROM tickets_panel")
+                for panel in result:
+                    embed = discord.Embed(title=panel[1], description=panel[2], color=0x11A5DC)
+                    embed.set_thumbnail(url=self.client.user.avatar)
+                    await message.author.send(content="Olá! Você não tem um ticket aberto!\n", embed=embed, view=SelectTickets(self.client))
+
 
         else:
             if message.content.startswith("---"): # SNIPPET NORMAL
@@ -262,7 +269,7 @@ class ModalOpenTicket(discord.ui.Modal):
             try:
                 await inter.user.send(embed=discord.Embed(color=0x11A5DC, title="Ticket aberto!", description="Aguarde uma resposta!"))
             except discord.Forbidden:
-                await inter.followup.send("Não foi possível abrir seu ticket pois sua DM está bloqueada.", ephemeral=True)
+                await inter.followup.send(f"Não foi possível abrir seu ticket pois sua DM está bloqueada. Envie mensagem na minha DM ({self.client.user.mention}) para abrir um ticket.", ephemeral=True)
                 return
             undecoded_text_channel_name = unidecode(text_channel_name)
             channel = await category.guild.create_text_channel(f"{undecoded_text_channel_name}", category=category)
