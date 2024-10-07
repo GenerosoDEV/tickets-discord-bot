@@ -262,24 +262,20 @@ class ModalOpenTicket(discord.ui.Modal):
 
     async def on_submit(self, inter: discord.Interaction):
         try:    
-            await inter.response.defer(ephemeral=True)
+            await inter.response.defer(ephemeral=False)
             category = self.client.get_channel(self.category_id)
             text_channel_name = f"{inter.user.name}"
             text_channel_name = u''+text_channel_name
-            try:
-                await inter.user.send(embed=discord.Embed(color=0x11A5DC, title="Ticket aberto!", description="Aguarde uma resposta!"))
-            except discord.Forbidden:
-                await inter.followup.send(f"Não foi possível abrir seu ticket pois sua DM está bloqueada. Envie mensagem na minha DM ({self.client.user.mention}) para abrir um ticket.", ephemeral=True)
-                return
             undecoded_text_channel_name = unidecode(text_channel_name)
             channel = await category.guild.create_text_channel(f"{undecoded_text_channel_name}", category=category)
             await channel.edit(sync_permissions=True)
             user_name = f"{inter.user.name}".replace("'", "")
             utils.dbExec(f"INSERT INTO tickets_openneds(OWNER_TICKET_UID, CHANNEL_ID, MESSAGES, ATENDANTS) VALUES('{inter.user.id}', '{channel.id}', '{user_name}: {self.reason}-_SEPARATOR_-', '')")
             await channel.send(f"{inter.user.mention} - `{inter.user.name}` (`{inter.user.id}`) \n**ID In-Game: **{self.uid}\n**Sobre:** {self.reason}")
-            await inter.followup.send("Ticket aberto! Cheque sua DM!", ephemeral=True)
+            await inter.followup.send(embed=discord.Embed(color=0x11A5DC, title="Ticket aberto!", description="Aguarde uma resposta!"), ephemeral=False)
+            
         except Exception as e:
-            print("ERRO",e)
+            print("Erro ao abrir ticket: " + str(e))
 
 class SelectTickets(discord.ui.View):
     def __init__(self, client):
