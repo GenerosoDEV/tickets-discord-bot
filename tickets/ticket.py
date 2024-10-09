@@ -194,7 +194,7 @@ class Ticket(commands.Cog):
                     await ctx.author.send(embed=discord.Embed(title=f"Você fechou o ticket de {user}!", description=last_message, color=0x11A5DC).set_footer(text=f"Protocolo: {protocol_uid}"))
                 except:
                     pass
-                await self.client.get_channel(1293536859867320340).send(f"```STAFF: {ctx.author.display_name}\nID STAFF: {ctx.author.id}\nMENSAGEM DE FECHAMENTO: {last_message}\nPROTOCOLO: {protocol_uid}```")
+                await self.client.get_channel(1293536859867320340).send(f"STAFF: {ctx.author.display_name} ({ctx.author.id}) fechou o ticket de protocolo `{protocol_uid}` (Usuário `{result[0][0]}`). Mensagem de fechamento: {last_message}")
             else:
                 try: 
                     await user.send(embed=discord.Embed(title="Ticket fechado!", color=0x11A5DC).set_footer(text=f"Protocolo: {protocol_uid}"))
@@ -204,7 +204,7 @@ class Ticket(commands.Cog):
                     await ctx.author.send(embed=discord.Embed(title=f"Você fechou o ticket de {user}!", color=0x11A5DC).set_footer(text=f"Protocolo: {protocol_uid}"))
                 except:
                     pass
-                await self.client.get_channel(1293536859867320340).send(f"```STAFF: {ctx.author.display_name}\nID STAFF: {ctx.author.id}\nPROTOCOLO: {protocol_uid}```")
+                await self.client.get_channel(1293536859867320340).send(f"STAFF: {ctx.author.display_name} ({ctx.author.id}) fechou o ticket de protocolo `{protocol_uid}` (Usuário `{result[0][0]}`).")
 
     @app_commands.command(description=f"Cheque a lista de snippets ou um snippet específico")
     @app_commands.guild_only()
