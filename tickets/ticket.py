@@ -194,7 +194,7 @@ class Ticket(commands.Cog):
                     await ctx.author.send(embed=discord.Embed(title=f"Você fechou o ticket de {user}!", description=last_message, color=0x11A5DC).set_footer(text=f"Protocolo: {protocol_uid}"))
                 except:
                     pass
-                await self.client.get_channel(1030490700611072120).send(f"```STAFF: {ctx.author.display_name}\nID STAFF: {ctx.author.id}\nMENSAGEM DE FECHAMENTO: {last_message}\nPROTOCOLO: {protocol_uid}```")
+                await self.client.get_channel(1293536859867320340).send(f"```STAFF: {ctx.author.display_name}\nID STAFF: {ctx.author.id}\nMENSAGEM DE FECHAMENTO: {last_message}\nPROTOCOLO: {protocol_uid}```")
             else:
                 try: 
                     await user.send(embed=discord.Embed(title="Ticket fechado!", color=0x11A5DC).set_footer(text=f"Protocolo: {protocol_uid}"))
@@ -204,7 +204,7 @@ class Ticket(commands.Cog):
                     await ctx.author.send(embed=discord.Embed(title=f"Você fechou o ticket de {user}!", color=0x11A5DC).set_footer(text=f"Protocolo: {protocol_uid}"))
                 except:
                     pass
-                await self.client.get_channel(1030490700611072120).send(f"```STAFF: {ctx.author.display_name}\nID STAFF: {ctx.author.id}\nPROTOCOLO: {protocol_uid}```")
+                await self.client.get_channel(1293536859867320340).send(f"```STAFF: {ctx.author.display_name}\nID STAFF: {ctx.author.id}\nPROTOCOLO: {protocol_uid}```")
 
     @app_commands.command(description=f"Cheque a lista de snippets ou um snippet específico")
     @app_commands.guild_only()
@@ -244,6 +244,7 @@ class Ticket(commands.Cog):
 
                 await inter.followup.send(ephemeral=True, content=f"ID do Usuário que abriu o ticket: {result[1]}\nID dos atendentes: {atendants_ids}", file=discord.File(f"./tickets/transcript_{protocolo}.txt"))
                 os.remove(f"./tickets/transcript_{protocolo}.txt")
+                await self.client.get_channel(1293536859867320340).send(f"{inter.user.display_name} ({inter.user.id}) utilizou `/transcript` no protocolo `{protocolo}`")
             else:
                 await inter.followup.send(f"Nenhum ticket registrado nesse protocolo.", ephemeral=True)
         except Exception as e: 
